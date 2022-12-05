@@ -30,7 +30,7 @@
 
 Name:             prismlauncher
 Version:          5.2
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Minecraft launcher with ability to manage multiple instances
 License:          GPL-3.0-only
 Group:            Amusements/Games
@@ -43,9 +43,9 @@ BuildRequires:    cmake >= 3.15
 BuildRequires:    extra-cmake-modules
 BuildRequires:    gcc-c++
 BuildRequires:    java-devel >= 17
-
 BuildRequires:    desktop-file-utils
 BuildRequires:    libappstream-glib
+BuildRequires:    cmake(ghc_filesystem)
 BuildRequires:    cmake(Qt%{qt_version}Concurrent) >= %{min_qt_version}
 BuildRequires:    cmake(Qt%{qt_version}Core) >= %{min_qt_version}
 BuildRequires:    cmake(Qt%{qt_version}Gui) >= %{min_qt_version}
@@ -59,20 +59,21 @@ BuildRequires:    cmake(Qt6Core5Compat)
 %endif
 
 BuildRequires:    pkgconfig(scdoc)
-BuildRequires:    zlib-devel
+BuildRequires:    pkgconfig(zlib)
 
 Requires(post):   desktop-file-utils
 Requires(postun): desktop-file-utils
 
 Requires:         qt%{qt_version}-qtimageformats
 Requires:         qt%{qt_version}-qtsvg
-Requires:         java-headless >= 17
 Requires:         javapackages-filesystem
+Requires:         java-headless >= 17
+Requires:         java-1.8.0-openjdk-headless
 
 # xrandr needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
-Recommends:     xrandr
+Recommends:       xrandr
 # Prism supports enabling gamemode
-Suggests:       gamemode
+Suggests:         gamemode
 
 
 %description
@@ -149,6 +150,10 @@ fi
 
 
 %changelog
+* Mon Dec 05 2022 seth <getchoo at tuta dot io> - 5.2-3
+- start using system version of filesystem, pkgconfig for more build deps, and
+  add java 8 as a dependency
+
 * Tue Nov 15 2022 seth <getchoo at tuta dot io> - 5.2-2
 - use newer version of toml++ to fix issues on aarch64
 
