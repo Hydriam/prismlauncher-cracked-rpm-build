@@ -1,4 +1,3 @@
-%global tomlplusplus_commit 0a90913abf9390b9e08ab6d3b40ac11634553f38
 %bcond_without qt6
 
 # Change this variables if you want to use custom keys
@@ -29,15 +28,15 @@
 %endif
 
 Name:             prismlauncher
-Version:          5.2
-Release:          3%{?dist}
+Version:          6.0
+Release:          0.1%{?dist}
 Summary:          Minecraft launcher with ability to manage multiple instances
-License:          GPL-3.0-only
+# see COPYING.md for more information
+# each file in the source also contains a SPDX-License-Identifier header that declares its license
+License:          GPL-3.0-only AND Apache-2.0 AND LGPL-3.0-only AND GPL-3.0-or-later AND GPL-2.0-or-later AND ISC AND OFL-1.1 AND LGPL-2.1-only AND MIT AND BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LGPL-3.0-or-later
 Group:            Amusements/Games
 URL:              https://prismlauncher.org/
 Source0:          https://github.com/PrismLauncher/PrismLauncher/releases/download/%{version}/%{name}-%{version}.tar.gz
-Source1:          https://github.com/marzer/tomlplusplus/archive/%{tomlplusplus_commit}/tomlplusplus-%{tomlplusplus_commit}.tar.gz
-Patch0:           fix-disable-FLOAT16-in-toml.patch
 
 BuildRequires:    cmake >= 3.15
 BuildRequires:    extra-cmake-modules
@@ -84,9 +83,7 @@ multiple installations of Minecraft at once (Fork of MultiMC)
 %prep
 %autosetup -n PrismLauncher-%{version}
 
-tar -xzf %{SOURCE1} -C libraries
-rm -rf libraries/tomlplusplus/*
-mv -f libraries/tomlplusplus-%{tomlplusplus_commit}/* libraries/tomlplusplus
+rm -rf libraries/{extra-cmake-modules,filesystem,zlib}
 
 # Do not set RPATH
 sed -i "s|\$ORIGIN/||" CMakeLists.txt
@@ -124,6 +121,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.prismlauncher.Pri
 %post
 /usr/bin/update-desktop-database &> /dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+/bin/touch --no-create %{_datadir}/mime/packages &>/dev/null || :
 
 
 %postun
@@ -131,11 +129,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.prismlauncher.Pri
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+    /usr/bin/update-mime-database %{_datadir}/mime &> /dev/null || :
 fi
 
 
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+/usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null ||
 
 
 %files
@@ -146,12 +146,16 @@ fi
 %{_datadir}/%{name}/NewLaunch.jar
 %{_datadir}/%{name}/JavaCheck.jar
 %{_datadir}/applications/org.prismlauncher.PrismLauncher.desktop
-%{_metainfodir}/org.prismlauncher.PrismLauncher.metainfo.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.prismlauncher.PrismLauncher.svg
+%{_datadir}/mime/packages/modrinth-mrpack-mime.xml
 %{_mandir}/man?/prismlauncher.*
+%{_metainfodir}/org.prismlauncher.PrismLauncher.metainfo.xml
 
 
 %changelog
+* Mon Dec 12 2022 seth <getchoo at tuta dot io> - 6.0-0.1
+- update to 6.0 and add more verbose license information
+
 * Mon Dec 05 2022 seth <getchoo at tuta dot io> - 5.2-3
 - start using system version of filesystem, pkgconfig for more build deps, and
   add java 8 as a dependency
