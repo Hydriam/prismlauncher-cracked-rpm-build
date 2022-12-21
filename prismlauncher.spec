@@ -28,7 +28,7 @@
 %endif
 
 Name:             prismlauncher
-Version:          6.0
+Version:          6.1
 Release:          0.1%{?dist}
 Summary:          Minecraft launcher with ability to manage multiple instances
 # see COPYING.md for more information
@@ -66,8 +66,8 @@ Requires(postun): desktop-file-utils
 Requires:         qt%{qt_version}-qtimageformats
 Requires:         qt%{qt_version}-qtsvg
 Requires:         javapackages-filesystem
-Requires:         java-headless >= 17
-Requires:         java-1.8.0-openjdk-headless
+Requires:         java >= 17
+Requires:         java-1.8.0-openjdk
 
 # xrandr needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
 Recommends:       xrandr
@@ -153,6 +153,9 @@ fi
 
 
 %changelog
+* Wed Dec 21 2022 seth <getchoo at tuta dot io> - 6.1-0.1
+- update to 6.1 and use the full version of java
+
 * Mon Dec 12 2022 seth <getchoo at tuta dot io> - 6.0-0.1
 - update to 6.0 and add more verbose license information
 
