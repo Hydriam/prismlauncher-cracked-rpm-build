@@ -33,8 +33,8 @@ Name:             prismlauncher
 %else
 Name:             prismlauncher-qt5
 %endif
-Version:          6.3
-Release:          2%{?dist}
+Version:          7.0
+Release:          %autorelease
 Summary:          Minecraft launcher with ability to manage multiple instances
 # see COPYING.md for more information
 # each file in the source also contains a SPDX-License-Identifier header that declares its license
@@ -123,7 +123,7 @@ sed -i "s|\$ORIGIN/||" CMakeLists.txt
 ## disabled due to inconsistent results in copr builds that are not reproducible locally
 # %ctest
 
-%if 0%{?rhel} < 9
+%if 0%{?rhel} && 0%{?rhel} < 9
 # disabled due to rhel not shipping a new enough version of libappstream-glib
 # appstream-util validate-relax --nonet \
 #     %{buildroot}%{_metainfodir}/org.prismlauncher.PrismLauncher.metainfo.xml
@@ -133,7 +133,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.prismlauncher.Pri
 
 
 %post
-%if 0%{?rhel} < 9
+%if 0%{?rhel} && 0%{?rhel} < 9
 /usr/bin/update-desktop-database &> /dev/null || :
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 /bin/touch --no-create %{_datadir}/mime/packages &>/dev/null || :
@@ -141,7 +141,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.prismlauncher.Pri
 
 
 %postun
-%if 0%{?rhel} < 9
+%if 0%{?rhel} && 0%{?rhel} < 9
 /usr/bin/update-desktop-database &> /dev/null || :
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
@@ -152,7 +152,7 @@ fi
 
 
 %posttrans
-%if 0%{?rhel} < 9
+%if 0%{?rhel} && 0%{?rhel} < 9
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 /usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 %endif
@@ -168,12 +168,16 @@ fi
 %{_datadir}/applications/org.prismlauncher.PrismLauncher.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.prismlauncher.PrismLauncher.svg
 %{_datadir}/mime/packages/modrinth-mrpack-mime.xml
+%{_datadir}/PrismLauncher/qtlogging.ini
 %{_datadir}/qlogging-categories%{qt_version}/prismlauncher.categories
 %{_mandir}/man?/prismlauncher.*
 %{_metainfodir}/org.prismlauncher.PrismLauncher.metainfo.xml
 
 
 %changelog
+* Thu Jun 08 2023 seth <getchoo@tuta.io> - 7.0-1
+- update to 7.0
+
 * Fri Jun 02 2023 seth <getchoo@tuta.io> - 6.3-2
 - only run epel scriptlets on versions >= 9, recommend libflite
 
