@@ -33,7 +33,7 @@ Name:             prismlauncher
 %else
 Name:             prismlauncher-qt5
 %endif
-Version:          7.0
+Version:          7.1
 Release:          %autorelease
 Summary:          Minecraft launcher with ability to manage multiple instances
 # see COPYING.md for more information
@@ -175,6 +175,9 @@ fi
 
 
 %changelog
+* Fri Jun 16 2023 seth <getchoo@tuta.io> - 7.1-1
+- update to 7.1
+
 * Thu Jun 08 2023 seth <getchoo@tuta.io> - 7.0-1
 - update to 7.0
 
