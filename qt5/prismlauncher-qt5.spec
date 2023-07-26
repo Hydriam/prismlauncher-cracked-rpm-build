@@ -1,4 +1,5 @@
 %global real_name prismlauncher
+%global nice_name PrismLauncher
 %bcond_with qt6
 
 # Change this variables if you want to use custom keys
@@ -33,7 +34,7 @@ Name:             prismlauncher
 %else
 Name:             prismlauncher-qt5
 %endif
-Version:          7.1
+Version:          7.2
 Release:          %autorelease
 Summary:          Minecraft launcher with ability to manage multiple instances
 # see COPYING.md for more information
@@ -161,14 +162,14 @@ fi
 %files
 %doc README.md
 %license LICENSE COPYING.md
-%dir %{_datadir}/%{real_name}
+%dir %{_datadir}/%{nice_name}
 %{_bindir}/prismlauncher
-%{_datadir}/%{real_name}/NewLaunch.jar
-%{_datadir}/%{real_name}/JavaCheck.jar
+%{_datadir}/%{nice_name}/NewLaunch.jar
+%{_datadir}/%{nice_name}/JavaCheck.jar
+%{_datadir}/%{nice_name}/qtlogging.ini
 %{_datadir}/applications/org.prismlauncher.PrismLauncher.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.prismlauncher.PrismLauncher.svg
 %{_datadir}/mime/packages/modrinth-mrpack-mime.xml
-%{_datadir}/PrismLauncher/qtlogging.ini
 %{_datadir}/qlogging-categories%{qt_version}/prismlauncher.categories
 %{_mandir}/man?/prismlauncher.*
 %{_metainfodir}/org.prismlauncher.PrismLauncher.metainfo.xml
