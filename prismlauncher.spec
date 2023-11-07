@@ -64,7 +64,7 @@ BuildRequires:    cmake(Qt6Core5Compat)
 %endif
 
 BuildRequires:    pkgconfig(libcmark)
-%if 0%{fedora} < 38
+%if 0%{?fedora} < 38 || 0%{?rhel} || 0%{?centos}
 BuildRequires:    cmark
 %endif
 BuildRequires:    pkgconfig(scdoc)
