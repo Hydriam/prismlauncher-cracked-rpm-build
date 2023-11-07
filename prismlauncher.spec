@@ -34,7 +34,7 @@ Name:             prismlauncher
 %else
 Name:             prismlauncher-qt5
 %endif
-Version:          7.2
+Version:          8.0
 Release:          %autorelease
 Summary:          Minecraft launcher with ability to manage multiple instances
 # see COPYING.md for more information
@@ -64,6 +64,9 @@ BuildRequires:    cmake(Qt6Core5Compat)
 %endif
 
 BuildRequires:    pkgconfig(libcmark)
+%if 0%{fedora} < 38
+BuildRequires:    cmark
+%endif
 BuildRequires:    pkgconfig(scdoc)
 BuildRequires:    pkgconfig(zlib)
 
@@ -167,6 +170,7 @@ fi
 %{_datadir}/%{nice_name}/NewLaunch.jar
 %{_datadir}/%{nice_name}/JavaCheck.jar
 %{_datadir}/%{nice_name}/qtlogging.ini
+%{_datadir}/%{nice_name}/NewLaunchLegacy.jar
 %{_datadir}/applications/org.prismlauncher.PrismLauncher.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.prismlauncher.PrismLauncher.svg
 %{_datadir}/mime/packages/modrinth-mrpack-mime.xml
@@ -176,6 +180,9 @@ fi
 
 
 %changelog
+* Tue Nov 07 2023 seth <getchoo at tuta dot io> - 8.0-1
+- update to 8.0
+
 * Fri Jun 16 2023 seth <getchoo@tuta.io> - 7.1-1
 - update to 7.1
 
