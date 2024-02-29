@@ -1,0 +1,48 @@
+* Tue Nov 07 2023 seth <getchoo at tuta dot io> - 8.0-1
+- update to 8.0
+
+* Fri Jun 16 2023 seth <getchoo at tuta dot io> - 7.1-1
+- update to 7.1
+
+* Thu Jun 08 2023 seth <getchoo at tuta dot io> - 7.0-1
+- update to 7.0
+
+* Fri Jun 02 2023 seth <getchoo at tuta dot io> - 6.3-2
+- only run epel scriptlets on versions >= 9, recommend libflite
+
+* Fri Feb 03 2023 seth <getchoo at tuta dot io> - 6.3-1
+- update to 6.3
+
+* Fri Feb 03 2023 seth <getchoo at tuta dot io> - 6.2-1
+- update to 6.2
+
+* Wed Dec 21 2022 seth <getchoo at tuta dot io> - 6.1-0.1
+- update to 6.1 and use the full version of java
+
+* Mon Dec 12 2022 seth <getchoo at tuta dot io> - 6.0-0.1
+- update to 6.0 and add more verbose license information
+
+* Mon Dec 05 2022 seth <getchoo at tuta dot io> - 5.2-3
+- start using system version of filesystem, pkgconfig for more build deps, and
+  add java 8 as a dependency
+
+* Tue Nov 15 2022 seth <getchoo at tuta dot io> - 5.2-2
+- use newer version of toml++ to fix issues on aarch64
+
+* Tue Nov 15 2022 seth <getchoo at tuta dot io> - 5.2-1
+- update to 5.2
+
+* Thu Nov 10 2022 seth <getchoo at tuta dot io> - 5.1-2
+- add package to Amusements/Games
+
+* Tue Nov 01 2022 seth <getchoo at tuta dot io> - 5.1-1
+- update to 5.1
+
+* Wed Oct 19 2022 seth <getchoo at tuta dot io> - 5.0-3
+- add missing deps and build with qt6 by default
+
+* Wed Oct 19 2022 seth <getchoo at tuta dot io> - 5.0-2
+- add change-jars-path.patch to allow for package-specific jar path
+
+* Wed Oct 19 2022 seth <getchoo at tuta dot io> - 5.0-1
+- update to version 5.0
