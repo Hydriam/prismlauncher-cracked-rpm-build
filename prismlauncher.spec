@@ -34,7 +34,7 @@ Name:             prismlauncher
 %else
 Name:             prismlauncher-qt5
 %endif
-Version:          8.3
+Version:          8.4
 Release:          %autorelease
 Summary:          Minecraft launcher with ability to manage multiple instances
 # see COPYING.md for more information
@@ -64,6 +64,9 @@ BuildRequires:    cmake(Qt6Core5Compat)
 %endif
 
 BuildRequires:    pkgconfig(libcmark)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2166815
+# Fedora versions < 38 don't contain cmark's binary target
+# FIXME: This should be in RHEL/centOS Stream 10, which we will need to account for
 %if 0%{?fedora} < 38 || 0%{?rhel} || 0%{?centos}
 BuildRequires:    cmark
 %endif
