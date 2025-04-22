@@ -1,3 +1,10 @@
+# Copyright: https://pagure.io/prismlauncher
+# This is modifed version of prismlauncher pagure.io prismlauncher.spec
+# Its modifed for prismlauncher-cracked github repo.
+# This is not endorsed by Prism Launcher or by Prism Launcher Cracked
+
+# Maintainer: Hydriam <163676548+Hydriam@users.noreply.github.com>
+
 # Change these variables if you want to use custom keys
 # Leave blank if you want to build Prism Launcher without an MSA ID or CurseForge API key
 %global msa_id default
@@ -22,16 +29,19 @@
 %global build_platform CentOS
 %endif
 
-Name:             prismlauncher
-Version:          9.3
+Name:             prismlauncher-cracked
+Version:          9.4
 Release:          %autorelease
 # See COPYING.md for more information
 # Each file in the source tree also contains a SPDX-License-Identifier header
 License:          GPL-3.0-only AND Apache-2.0 AND LGPL-3.0-only AND OFL-1.1 AND LGPL-2.1 AND MIT AND BSD-3-Clause
 Group:            Amusements/Games
 Summary:          Minecraft launcher with ability to manage multiple instances
-Source:           https://github.com/PrismLauncher/PrismLauncher/releases/download/%{version}/PrismLauncher-%{version}.tar.gz
-URL:              https://prismlauncher.org/
+Source:           https://github.com/Diegiwg/PrismLauncher-Cracked/releases/download/%{version}/PrismLauncher-%{version}.tar.gz
+%if "%{version}" == "9.4"
+Patch0: version-for-9.4.patch
+%endif
+URL:              https://github.com/Diegiwg/PrismLauncher-Cracked
 
 BuildRequires:    cmake >= 3.15
 BuildRequires:    extra-cmake-modules
@@ -40,7 +50,6 @@ BuildRequires:    gcc-c++
 # Fedora repositories
 # Make sure you have Adoptium's repositories enabled
 # https://fedoraproject.org/wiki/Changes/ThirdPartyLegacyJdks
-# https://adoptium.net/installation/linux/#_centosrhelfedora_instructions
 %if 0%{?fedora} > 41
 BuildRequires:    temurin-17-jdk
 %else
@@ -100,7 +109,7 @@ multiple installations of Minecraft at once (Fork of MultiMC)
 
 
 %prep
-%autosetup -n PrismLauncher-%{version}
+%autosetup -n PrismLauncher-%{version} %if "%{version}" == "9.4" -p1 %endif
 
 rm -rf libraries/{extra-cmake-modules,filesystem,zlib}
 
@@ -109,6 +118,7 @@ rm -rf libraries/{extra-cmake-modules,filesystem,zlib}
 %cmake \
   -DLauncher_QT_VERSION_MAJOR="%{qt_version}" \
   -DLauncher_BUILD_PLATFORM="%{build_platform}" \
+  -DLauncher_APP_BINARY_NAME="prismlauncher" \
   %if 0%{?fedora} > 41
   -DLauncher_ENABLE_JAVA_DOWNLOADER=ON \
   %endif
